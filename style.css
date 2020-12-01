@@ -45,7 +45,7 @@ button {
 
 .piggyBank::after {
     display: block;
-    background: url(kopilka.svg) bottom center no-repeat;
+    background: url(svg/kopilka.svg) bottom center no-repeat;
     background-color: #DBC1AD;
     background-size: contain;
     content: '';
@@ -57,7 +57,7 @@ button {
 
 
 .coin {
-    background: url(euro.svg) bottom center no-repeat;
+    background: url(svg/euro.svg) bottom center no-repeat;
     background-size: 40%;
     position: absolute;
     top: 100%;
@@ -68,3 +68,6 @@ button {
     cursor: pointer;
 }
 
+.piggyBank.up .coin{
+    top: 0%;
+}
