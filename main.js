@@ -4,9 +4,9 @@ const piggyBank = document.querySelectorAll('.piggyBank'),
 let lastBank;
 let timeUp = false;
 let score = 0;
-let currentScore = 0;
-let minTime = 10,
-  maxTime = 2000;
+ fail = 0;
+
+
 // random time
 function randomTime (min, max) {
     return Math.round(Math.random()*(max-min) + min);
@@ -25,74 +25,50 @@ function randomBank (piggyBank) {
 
 //  podnimaem coin
 function up () {
+    let minTime,
+        maxTime;
+            if (score <= 10) {
+            minTime = 1500;
+            maxTime =2500;
+          }
+        if (score > 10) {
+            minTime =1400
+            maxTime = 1000;
+          }
+        if (score > 20) {
+            minTime =  200;
+            maxTime = 500;
+    }
     const time = randomTime (minTime, maxTime);
     const bank = randomBank(piggyBank);
     bank.classList.add('up');
     setTimeout(() => {
-        bank.classList.remove('up');
+        if ( bank.classList.contains('up')) {
+            bank.classList.remove('up');
+            fail++;
+        }
+      if (fail == 5) {
+        timeUp = true;
+        alert('GAME OVER');
+      }
         if(!timeUp) up();
     }, time)
-
 }
 
-
-
 function catchUp(e) {
-    if(!e.isTrusted) return;
+    if(!e.isTrusted) return; 
     score++;
     this.parentNode.classList.remove('up');
     scoreTable.textContent = score;
-    currentScore = score;
 }
 
 coins.forEach(coin => coin.addEventListener('click', catchUp ));
 
 
 function startGame() {
-    // if (score <= 3) {
-    //     startLevelEasy();
-    //   }
-    // if (score > 3) {
-    //     startLevelMiddle();
-    //   }
-    // if (score > 10) {
-    //     startLevelHard();
-    //   }
-    scoreTable.textContent = currentScore;  // remember score in local(esli ne nado = 0 i dobavljaem score = 0)
-    timeUp = false;
-    up();
     setTimeout(() => timeUp = true, 60000)
+    up();
+
 }
 
-// function startLevelEasy() {
-//     minTime = maxTime + 1400;
-//     maxTime = maxTime + 0;
-//     timeUp = false;
-//     up(minTime, maxTime);
-//     setTimeout(() => timeUp = true, 60000)
-// };
-
-// function startLevelMiddle() {
-//     minTime =minTime + 500;
-//     maxTime = maxTime - 500;
-//     timeUp = false;
-//     up(minTime, maxTime);
-//     setTimeout(() => timeUp = true, 60000)
-// };
-
-// function startLevelHard() {
-//     minTime =  minTime;
-//     maxTime = 500;
-//     timeUp = false;
-//     up(minTime, maxTime);
-//     setTimeout(() => timeUp = true, 60000)
-// }
-
-
-// function stopGame() {
-//   timeUp = true;
-//     if (currentScore == 2 ) {
-//        return stopGame();
-//     };
-// }
 
