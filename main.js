@@ -4,7 +4,7 @@ const piggyBank = document.querySelectorAll('.piggyBank'),
 let lastBank;
 let timeUp = false;
 let score = 0;
- fail = 0;
+let fail = 0;
 
 
 // random time
@@ -23,34 +23,35 @@ function randomBank (piggyBank) {
     return bank;
 }
 
-//  podnimaem coin
+//  up coin
 function up () {
     let minTime,
         maxTime;
-            if (score <= 10) {
-            minTime = 1500;
-            maxTime =2500;
-          }
-        if (score > 10) {
-            minTime =1400
-            maxTime = 1000;
-          }
-        if (score > 20) {
-            minTime =  200;
-            maxTime = 500;
+    if (score <= 10) {
+        minTime = 1500;
+        maxTime =2500;
+    }
+    if (score > 10) {
+        minTime =1400
+        maxTime = 1000;
+    }
+    if (score > 20) {
+        minTime =  200;
+        maxTime = 500;
     }
     const time = randomTime (minTime, maxTime);
     const bank = randomBank(piggyBank);
     bank.classList.add('up');
     setTimeout(() => {
         if ( bank.classList.contains('up')) {
-            bank.classList.remove('up');
-            fail++;
-        }
-      if (fail == 5) {
+        bank.classList.remove('up');
+        fail++;
+    }
+        if (fail == 5) {
         timeUp = true;
         alert('GAME OVER');
-      }
+        scoreTable.textContent = 0;
+    }
         if(!timeUp) up();
     }, time)
 }
@@ -68,7 +69,6 @@ coins.forEach(coin => coin.addEventListener('click', catchUp ));
 function startGame() {
     setTimeout(() => timeUp = true, 60000)
     up();
-
 }
 
 
