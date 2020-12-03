@@ -50,7 +50,7 @@ function up () {
         if (fail == 5) {
         timeUp = true;
         alert('GAME OVER');
-        scoreTable.textContent = 0;
+        location.reload(); 
     }
         if(!timeUp) up();
     }, time)
@@ -69,6 +69,6 @@ coins.forEach(coin => coin.addEventListener('click', catchUp ));
 function startGame() {
     setTimeout(() => timeUp = true, 60000)
     up();
-}
+};
 
 
